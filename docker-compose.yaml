@@ -1,0 +1,26 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - server1
+      - server2
+
+  server1:
+    image: twoone14/nonstop:0.1
+    container_name: server1
+    expose:
+      - 8080
+
+  server2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+#    image: twoone14/nonstop:0.1
+    container_name: server2
+    expose:
+      - 8080
